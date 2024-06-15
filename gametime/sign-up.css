@@ -1,0 +1,55 @@
+*{
+  cursor: url(mouse-prateado.png), auto !important;
+}
+body{
+  background-image: linear-gradient(45deg, aqua, blue);
+}
+.login{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #2d5985;
+  padding: 50px;
+  border-radius: 20px;
+}
+input{
+  padding: 8px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  border-radius: 4px;
+}
+button{
+  border: none;
+  color: white;
+  background-color: #0088ff;
+  width: 100%;
+  border-radius: 4px;
+}
+button:hover{
+  background-color: #309fff;
+}
+input.entrar{
+  background-color: transparent;
+  color: white;
+}
+h1{
+  color: #4698db;
+  font-family: "Pixelify Sans", sans-serif;
+  
+}
+.gametime{
+  font-family: "Pixelify Sans", sans-serif;
+  color: #4698db;
+}
+#togglePassword{
+  color: green;
+}
+a{
+  color: white;
+  text-align: center;
+}
+a:hover{
+  color: #4698db;
+}

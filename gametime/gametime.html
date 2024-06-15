@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<body class="site">
+<head><meta><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<head>
+ <link rel="stylesheet" href="gametime.css" >
+ <link rel="shortcut icon" href="gt.png" type="image/x-icon">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<head><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet"></head>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+<title>Game Time</title>
+</head>
+
+<nav id="menu">
+  <ul id="menu">
+    
+    <h1 id="menu" class="game"> Game Time </h1>
+    <li class="caneta" id="menu" >
+      <a href="#">Idiomas</a>
+      
+      <div class="servico-menu">
+        <a href="">Español</a>
+        <a href="">English</a>
+      </div>
+    </li>
+   <li class="caneta" id="menu" >
+      <a href="#">Mais</a>
+      
+      <div class="servico-menu">
+        <a href="avalie.html">Avalie-nos</a>
+        <a href="">História do Site</a>
+        <a href="login.html">Login</a>
+      </div>
+    </li>
+    <li>
+      <div class="pesquisa">
+       <input type="text" id="searchInput" placeholder="Pesquisar jogo...." onkeydown="searchOnEnter(event)">
+      <button class="pesquisar" onclick="searchButtons()"><i class="bi bi-search"></i></button>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<span class="loading"></span>
+<br>
+<br>
+<br>
+ <div id="buttonContainer">
+  <a href="paint.html"><button class="Jogos paint"><h1 class="text">Paint</h1></button></a>
+  <div class="snake-div"><a href="snake.html"><button class="Jogos snake"><h1 class="snake-text">Snake</h1></button></a></div>
+ </div>
+ <script src="gametime.js"></script>
+</body>
+</html>

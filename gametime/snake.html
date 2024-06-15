@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogo da Cobra</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    canvas {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+    }
+
+    #gameOver {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 36px;
+        z-index: 9999;
+    }
+</style>
+</head>
+<body>
+<canvas id="snakeCanvas"></canvas>
+<div id="gameOver">Fim de Jogo! Pressione Enter para reiniciar.</div>
+<script>
+    const canvas = document.getElementById("snakeCanvas");
+    const ctx = canvas.getContext("2d");
+    const box = 20;
+    const columns = Math.floor(window.innerWidth / box);
+    const rows = Math.floor(window.innerHeight / box);
+    canvas.width = columns * box;
+    canvas.height = rows * box;
+    let snake = [{x: Math.floor(columns / 2) * box, y: Math.floor(rows / 2) * box}];
+    let dx = 0;
+    let dy = 0;
+    let food = {x: 0, y: 0};
+    let gameOver = false;
+    let gameInterval;
+
+    function drawSnake() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "green";
+        snake.forEach(segment => {
+            ctx.fillRect(segment.x, segment.y, box, box);
+        });
+    }
+
+    function moveSnake() {
+        const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+        snake.unshift(head);
+        if (head.x === food.x && head.y === food.y) {
+            generateFood();
+        } else {
+            snake.pop();
+        }
+    }
+
+    function generateFood() {
+        food.x = Math.floor(Math.random() * columns) * box;
+        food.y = Math.floor(Math.random() * rows) * box;
+    }
+
+    function drawFood() {
+        ctx.fillStyle = "red";
+        ctx.fillRect(food.x, food.y, box, box);
+    }
+
+    function checkCollision() {
+        const head = snake[0];
+        if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
+            return true;
+        }
+        for (let i = 1; i < snake.length; i++) {
+            if (head.x === snake[i].x && head.y === snake[i].y) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function restartGame() {
+        snake = [{x: Math.floor(columns / 2) * box, y: Math.floor(rows / 2) * box}];
+        dx = 0;
+        dy = 0;
+        generateFood();
+        gameOver = false;
+        document.getElementById("gameOver").style.display = "none";
+        clearInterval(gameInterval);
+        gameInterval = setInterval(gameLoop, 100);
+    }
+
+    function gameLoop() {
+        if (checkCollision()) {
+            gameOver = true;
+            document.getElementById("gameOver").style.display = "block";
+            clearInterval(gameInterval);
+            return;
+        }
+        moveSnake();
+        drawSnake();
+        drawFood();
+    }
+
+    document.addEventListener("keydown", event => {
+        const keyPressed = event.key;
+        if (gameOver && keyPressed === "Enter") {
+            restartGame();
+        }
+        if (gameOver || (keyPressed !== "ArrowUp" && keyPressed !== "ArrowDown" && keyPressed !== "ArrowLeft" && keyPressed !== "ArrowRight")) {
+            return;
+        }
+        if (keyPressed === "ArrowUp" && dy === 0) {
+            dx = 0;
+            dy = -box;
+        } else if (keyPressed === "ArrowDown" && dy === 0) {
+            dx = 0;
+            dy = box;
+        } else if (keyPressed === "ArrowLeft" && dx === 0) {
+            dx = -box;
+            dy = 0;
+        } else if (keyPressed === "ArrowRight" && dx === 0) {
+            dx = box;
+            dy = 0;
+        }
+    });
+
+    canvas.addEventListener("touchstart", event => {
+        if (gameOver) return;
+        const touchX = event.touches[0].clientX;
+        const touchY = event.touches[0].clientY;
+        const headX = snake[0].x;
+        const headY = snake[0].y;
+        if (Math.abs(touchX - headX) > Math.abs(touchY - headY)) {
+            if (touchX > headX && dx === 0) {
+                dx = box;
+                dy = 0;
+            } else if (touchX < headX && dx === 0) {
+                dx = -box;
+                dy = 0;
+            }
+        } else {
+            if (touchY > headY && dy === 0) {
+                dy = box;
+                dx = 0;
+            } else if (touchY < headY && dy === 0) {
+                dy = -box;
+                dx = 0;
+            }
+        }
+    });
+
+    generateFood();
+    gameInterval = setInterval(gameLoop, 100);
+</script>
+</body>
+</html>

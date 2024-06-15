@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paint</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 1px solid black;
+      cursor: crosshair;
+    }
+
+    #tools {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1;
+    }
+    #eraseBtn, #fillBtn, #clearBtn, #baixar, #brushSize, #voltar{
+      padding: 8px;
+      border: 4px solid black;
+      border-radius: 10px;
+      background-color: gray;
+      user-select: none;
+      cursor: pointer;
+      }
+      #colorPicker{
+        cursor: pointer;
+      }
+  </style>
+</head>
+<body>
+  <div id="tools">
+    <input type="color" id="colorPicker">
+    <input type="number" id="brushSize" min="1" max="50" value="5">
+    <button id="eraseBtn">Borracha</button>
+    <button id="fillBtn">Cor para Fundo</button>
+    <button id="clearBtn">Limpar</button>
+    <a id="downloadBtn" download="draw.png"><button id="baixar">Baixar</button></a>
+    <a href="gametime.html"><button id="voltar">Voltar para Game Time</button></a>
+  </div>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+    let color = '#000000';
+    let brushSize = 5;
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseout', stopDrawing);
+    canvas.addEventListener('touchstart', startDrawingTouch);
+    canvas.addEventListener('touchmove', drawTouch);
+    canvas.addEventListener('touchend', stopDrawing);
+
+    document.getElementById('colorPicker').addEventListener('input', () => setColor(document.getElementById('colorPicker').value));
+    document.getElementById('brushSize').addEventListener('input', setBrushSize);
+    document.getElementById('eraseBtn').addEventListener('click', () => setColor('#ffffff'));
+    document.getElementById('fillBtn').addEventListener('click', fillCanvas);
+    document.getElementById('clearBtn').addEventListener('click', clearCanvas);
+    document.getElementById('downloadBtn').addEventListener('click', downloadCanvas);
+
+    function startDrawing(e) {
+      isDrawing = true;
+      [lastX, lastY] = [e.offsetX, e.offsetY];
+    }
+
+    function startDrawingTouch(e) {
+      e.preventDefault();
+      isDrawing = true;
+      [lastX, lastY] = [e.touches[0].clientX - canvas.offsetLeft, e.touches[0].clientY - canvas.offsetTop];
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+
+      context.beginPath();
+      context.strokeStyle = color;
+      context.lineWidth = brushSize;
+      context.lineCap = 'round';
+      context.moveTo(lastX, lastY);
+      context.lineTo(e.offsetX, e.offsetY);
+      context.stroke();
+      [lastX, lastY] = [e.offsetX, e.offsetY];
+    }
+
+    function drawTouch(e) {
+      if (!isDrawing) return;
+
+      context.beginPath();
+      context.strokeStyle = color;
+      context.lineWidth = brushSize;
+      context.lineCap = 'round';
+      context.moveTo(lastX, lastY);
+      context.lineTo(e.touches[0].clientX - canvas.offsetLeft, e.touches[0].clientY - canvas.offsetTop);
+      context.stroke();
+      [lastX, lastY] = [e.touches[0].clientX - canvas.offsetLeft, e.touches[0].clientY - canvas.offsetTop];
+    }
+
+    function stopDrawing() {
+      isDrawing = false;
+    }
+
+    function setColor(newColor) {
+      color = newColor;
+    }
+
+    function setBrushSize() {
+      brushSize = this.value;
+    }
+
+    function fillCanvas() {
+      context.fillStyle = color;
+      context.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function clearCanvas() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function downloadCanvas() {
+      const link = document.getElementById('downloadBtn');
+      link.href = canvas.toDataURL('image/png');
+    }
+  </script>
+</body>
+</html>

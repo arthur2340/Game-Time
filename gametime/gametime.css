@@ -1,0 +1,115 @@
+/* Start https://www.cursors-4u.com */ * {cursor: url(https://i.ibb.co/v15vG8c/24-Sem-T-tulo-20240406174419.png˜), auto !important;} /* End https://www.cursors-4u.com */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body.site{
+  background: url(game-time-logo.png);
+  background-repeat: no-repeat;
+  background-size: 700px, cover;
+  background-position: center;
+  background-color: white;
+}
+h1.game{
+  display: inline-block;
+  color: #4698db;
+  font-size: 30px;
+  user-select: none;
+  font-family: "Pixelify Sans", sans-serif; 
+}
+
+nav{
+  background-color: #2d5985;
+}
+nav li{
+  display: inline-block;
+}
+nav li a{
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  padding: 15px;
+}
+nav li a:hover{
+    background-color: #4a93e0;
+}
+  .servico-menu{
+    position: absolute;
+    box-shadow: 0 0 2px black;
+    background-color: #2d5985;
+    display: none;
+}
+.servico-menu a{
+    display: block;
+}
+.caneta:hover .servico-menu{
+ display: block;
+}
+span.loading{
+  background-color: transparent;
+  height: 80px;
+  width: 80px;
+  display: none;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 50%;
+  border: 16px solid black;
+  border-top: 12px solid transparent;
+  animation: loading 1s linear infinite;
+}
+@keyframes loading{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+.paint{
+      border-radius: 10px;
+      height: 120px;
+      width: 120px;
+      background-image: conic-gradient(from 45deg, red, yellow, lime, aqua, blue, magenta);
+    }
+    .text{
+      font-size: 30px;
+      color: white;
+      text-shadow: 
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+    }
+    .text:hover, .paint:hover{
+      font-size: 30px;
+      color: black;
+      text-shadow: 
+        -1px -1px 0 white,
+         1px -1px 0 white,
+        -1px  1px 0 white,
+         1px  1px 0 white;
+    }
+.snake{
+  height: 120px;
+  width: 120px;
+  border-radius: 10px;
+  background-color: lightgreen;
+}
+.snake-text{
+  color: rgb(0, 136, 0);
+}
+.snake-text:hover{
+  color: red;
+}
+.pesquisar{
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+.pesquisa{
+  font-size: 30px;
+  padding: 3px;
+  border: none;
+  outline: none;
+}

@@ -1,0 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: white;
+}
+.segredo{
+  color: #ededed;
+}
+.segredo:hover{
+  color: black;
+}
