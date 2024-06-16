@@ -1,0 +1,1 @@
+$ netflify deploy --prod
